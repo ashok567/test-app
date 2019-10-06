@@ -22,9 +22,14 @@ class UserHandler(RequestHandler):
         self.write({'response': json.loads(res)})
 
 
+class InsightHandler(RequestHandler):
+    def get(self):
+        res = process.get_insight()
+        self.write({'response': json.loads(res)})
+
+
 settings = dict(
     template_path=os.path.join(os.path.dirname(__file__), 'templates'),
-    # static_path=os.path.join(os.path.dirname(__file__), 'static'),
     debug=True
 )
 
@@ -35,6 +40,7 @@ def make_app():
             (r'/', MainHandler),
             (r'/data', DataHandler),
             (r'/user', UserHandler),
+            (r'/insight', InsightHandler),
             (r'/(.*)', tornado.web.StaticFileHandler,
              {"path": ""})], **settings)
 
