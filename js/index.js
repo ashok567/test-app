@@ -13,6 +13,10 @@ $(document).ready(function (){
   })
     .done(function (data){
       console.log(data)
+      var months = _.map(data, 'Month')
+      var channels = _.map(data, 'Channels')
+      var colors = ['#66c2a5', '#D2691E', '#DAA520', '#8da0cb', '#a6d854', '#e78ac3']
+      console.log(channels)
     })
     .fail(function (error) {
       alert(error)
