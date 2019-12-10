@@ -7,10 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" id="heading"><img src="images/logo.png" width="32" height="32" class="d-inline-block align-top" alt="">DATA ANALYSIS</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,40 +27,18 @@
     </div>
   </nav>
   <div class="container-fluid">
-    <div class="loader-wrapper">
-      <span class="loader"><span class="loader-inner"></span></span>
-    </div>
     <div class="row">
-      <div class="col-xs-6 col-lg-6 mb-4">
-        <div class="d-flex justify-content-center align-items-center" id="canvas1"></div>
-      </div>
       <div class="col-xs-6 col-lg-6">
-        <div class="row">
-          <div class="d-flex justify-content-center align-items-center" id="insights">
-            <script id='insight_in' type="text/html">
-              <ul id="insight">
-                <li></li>
-              </ul>
-            </script>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-6 col-lg-6">
-            <div class="d-flex justify-content-center align-items-center" id="canvas2"></div>
-          </div>
-          <div class="col-xs-6 col-lg-6">
-            <div class="d-flex justify-content-center align-items-center" id="canvas3"></div>
-          </div>
-        </div>
+        <div id="canvas1"></div>
       </div>
-    </div>
+    <div>
   </div>
-
 </body>
 <script src="./node_modules/jquery/dist/jquery.js"></script>
 <script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./node_modules/d3/dist/d3.min.js"></script>
 <script src="./node_modules/lodash/lodash.min.js"></script>
-<script src="./js/index.js"></script>
+<script src="./node_modules/html2canvas/dist/html2canvas.min.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
 </html>

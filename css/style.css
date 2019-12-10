@@ -1,0 +1,38 @@
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+}
+
+path.domain {
+    stroke: none;
+}
+
+.tick line{
+    stroke: rgb(245, 240, 240);
+}
+
+.y .tick line{
+    stroke: #000;
+}
+
+.line{
+    fill : none;
+    stroke-width: 2;
+}
+
+#canvas1 {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 80%;
+    vertical-align: top;
+}
+
+
+.svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
