@@ -75,7 +75,7 @@ $(document).ready(function (){
       svg.append('text')
         .attr('class', 'y label')
         .attr('text-anchor', 'end')
-        .attr('x', -180)
+        .attr('x', -120)
         .attr('y', -40)
         .attr('font-size', '16')
         .attr('dy', '.35em')
@@ -86,7 +86,7 @@ $(document).ready(function (){
         .attr('class', 'x label')
         .attr('text-anchor', 'middle')
         .attr('x', width / 2)
-        .attr('y', height + 40)
+        .attr('y', height + 30)
         .attr('font-size', '16')
         .attr('dy', '.35em')
         .text('Months')
@@ -109,7 +109,7 @@ $(document).ready(function (){
         .attr('y', 9)
         .attr('dy', '.35em')
         .style('text-anchor', 'start')
-        .style('font', '10px sans-serif')
+        .style('font', '11px sans-serif')
         .text(function (d, i) {
           switch (i) {
             case 0: return channels[0]
