@@ -1,12 +1,12 @@
 /* eslint-disable space-before-blocks */
 $('body').tooltip({ selector: '[title],[data-title],[data-original-title]', container: 'body', html: true, animated: 'fade' })
 
-var margin = { top: 50, right: 10, bottom: 10, left: 50 }
+var margin = { top: 50, right: 10, bottom: 10, left: 60 }
 
 var width = 600 - margin.left - margin.right
 var height = 400 - margin.top - margin.bottom
 
-var svg = d3.selectAll('#canvas1').append('svg').attr('width', 700).attr('height', 500)
+var svg = d3.selectAll('#canvas1').append('svg').attr('width', 700).attr('height', 480)
   // .attr('preserveAspectRatio', 'xMinYMin meet')
   // .attr('viewBox', '0 0 600 520').classed('svg-content', true)
   .append('g')
@@ -15,17 +15,17 @@ var svg = d3.selectAll('#canvas1').append('svg').attr('width', 700).attr('height
 $(document).ready(function (){
   $.ajax({
     type: 'GET',
-    url: '/data'
+    url: '/subs'
   })
     .done(function (data){
       var months = _.uniq(_.map(data.response, 'Month'))
       var channels = _.pull(_.keys(data.response[0]), 'Month')
-      var colors = ['#66c2a5', '#D2691E', '#DAA520', '#8da0cb', '#a6d854', '#e78ac3']
+      var colors = ['#66c2a5', '#D2691E', '#FFD700', '#8da0cb', '#a6d854', '#e78ac3']
+      var mainColors = {}
+      _.each(channels, function (d, i) { mainColors[d] = colors[i] })
 
       var stack = d3.stack().keys(channels)
       var dataset = stack(data.response)
-
-      console.log(dataset)
 
       var x = d3.scaleBand()
         .domain(months.map(function (d) { return d }))
@@ -86,7 +86,7 @@ $(document).ready(function (){
         .attr('class', 'x label')
         .attr('text-anchor', 'middle')
         .attr('x', width / 2)
-        .attr('y', height + 30)
+        .attr('y', height + 50)
         .attr('font-size', '16')
         .attr('dy', '.35em')
         .text('Months')
@@ -120,6 +120,78 @@ $(document).ready(function (){
             case 5: return channels[5]
           }
         })
+
+      $.get('/views', function (data1){
+        var dataset1 = data1.response
+
+        console.log(dataset1)
+
+        var margin1 = { top: 20, right: 10, bottom: 10, left: 40 }
+
+        var width1 = 400 - margin1.left - margin1.right
+        var height1 = 400 - margin1.top - margin1.bottom
+
+        var svg1 = d3.selectAll('#canvas2')
+          .append('svg')
+          .attr('width', 400)
+          .attr('height', 450)
+          .append('g')
+          .attr('transform', 'translate(' + margin1.left + ',' + margin1.top + ')')
+
+        var x1 = d3.scaleBand()
+          .domain(months.map(function (d) { return d }))
+          .range([10, width1 - 10], 0.02)
+
+        var y1 = d3.scaleLinear()
+          .domain([0, d3.max(Object.values(dataset1), (d) => { return d3.max(Object.values(d)) })])
+          .range([height1, 0])
+
+        var xaxis = d3.axisBottom(x1)
+
+        var yaxis = d3.axisLeft(y1).tickSize(-width1, 0, 0).tickFormat(function (d) { return d })
+
+        svg1.append('g').attr('class', 'y axis').call(yaxis)
+
+        svg1.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height1 + ')').call(xaxis)
+
+        _.each(dataset1, (data, i) => {
+          var line = d3.line().x((d) => { return x1(d[0]) + x1.bandwidth() / 2 }).y((d) => { return y1(d[1]) })
+          svg1.append('path').datum(Object.entries(data)).attr('d', line).attr('class', 'line').attr('stroke', mainColors[i])
+
+          svg1.selectAll()
+            .data(Object.entries(data))
+            .enter().append('circle')
+            .attr('class', 'dot')
+            .attr('cx', function (d) { return x1(d[0]) + x1.bandwidth() / 2 })
+            .attr('cy', function (d) { return y1(d[1]) })
+            .attr('r', 3)
+            .attr('fill', mainColors[i])
+            .attr('data-placement', 'right')
+            .attr('data-toggle', 'popover')
+            .attr('data-title', function (d){
+              return d
+            })
+        })
+
+        svg1.append('text')
+          .attr('class', 'y label')
+          .attr('text-anchor', 'end')
+          .attr('x', -width1 / 2)
+          .attr('y', -30)
+          .attr('font-size', '16')
+          .attr('dy', '.35em')
+          .attr('transform', 'rotate(-90)')
+          .text('Views')
+
+        svg1.append('text')
+          .attr('class', 'x label')
+          .attr('text-anchor', 'middle')
+          .attr('x', width1 / 2)
+          .attr('y', height1 + 50)
+          .attr('font-size', '16')
+          .attr('dy', '.35em')
+          .text('Months')
+      })
     })
     .fail(function (error) {
       alert(error)

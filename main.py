@@ -10,21 +10,15 @@ class MainHandler(RequestHandler):
         self.render("index.html")
 
 
-class DataHandler(RequestHandler):
+class SubsDataHandler(RequestHandler):
     def get(self):
-        res = process.get_data()
+        res = process.get_subs()
         self.write({'response': json.loads(res)})
 
 
-class UserHandler(RequestHandler):
+class ViewsDataHandler(RequestHandler):
     def get(self):
-        res = process.get_user()
-        self.write({'response': json.loads(res)})
-
-
-class InsightHandler(RequestHandler):
-    def get(self):
-        res = process.get_insight()
+        res = process.get_views()
         self.write({'response': json.loads(res)})
 
 
@@ -38,9 +32,8 @@ def make_app():
     return Application(
         [
             (r'/', MainHandler),
-            (r'/data', DataHandler),
-            (r'/user', UserHandler),
-            (r'/insight', InsightHandler),
+            (r'/subs', SubsDataHandler),
+            (r'/views', ViewsDataHandler),
             (r'/(.*)', tornado.web.StaticFileHandler,
              {"path": ""})], **settings)
 

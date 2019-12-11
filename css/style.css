@@ -9,11 +9,11 @@ path.domain {
 }
 
 .tick line{
-    stroke: rgb(245, 240, 240);
+    stroke: #ddd;
 }
 
-.y .tick line{
-    stroke: #000;
+.x .tick line{
+    stroke: #ddd;
 }
 
 .line{
@@ -25,10 +25,12 @@ path.domain {
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 80%;
     vertical-align: top;
 }
 
+li, #heading, svg{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
 
 .svg-content {
     display: inline-block;
