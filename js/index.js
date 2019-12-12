@@ -75,12 +75,12 @@ $(document).ready(function (){
       svg.append('text')
         .attr('class', 'y label')
         .attr('text-anchor', 'end')
-        .attr('x', -120)
+        .attr('x', -100)
         .attr('y', -40)
         .attr('font-size', '16')
         .attr('dy', '.35em')
         .attr('transform', 'rotate(-90)')
-        .text('Subscribers')
+        .text('Subscribers (in mn)')
 
       svg.append('text')
         .attr('class', 'x label')
@@ -123,8 +123,6 @@ $(document).ready(function (){
 
       $.get('/views', function (data1){
         var dataset1 = data1.response
-
-        console.log(dataset1)
 
         var margin1 = { top: 20, right: 10, bottom: 10, left: 40 }
 
@@ -176,12 +174,12 @@ $(document).ready(function (){
         svg1.append('text')
           .attr('class', 'y label')
           .attr('text-anchor', 'end')
-          .attr('x', -width1 / 2)
+          .attr('x', -120)
           .attr('y', -30)
           .attr('font-size', '16')
           .attr('dy', '.35em')
           .attr('transform', 'rotate(-90)')
-          .text('Views')
+          .text('Views (in mn)')
 
         svg1.append('text')
           .attr('class', 'x label')
@@ -192,6 +190,71 @@ $(document).ready(function (){
           .attr('dy', '.35em')
           .text('Months')
       })
+
+      var channel = 'Pewdiepie'
+      var channelData = _.map(data.response, (d) => _.pick(d, ['Month', channel]))
+
+      var width2 = 250
+      var height2 = 370
+      var margin2 = { top: 20, right: 20, bottom: 30, left: 40 }
+
+      var yscale2 = d3.scaleBand().domain(months.map((d) => { return d })).range([0, height2]).padding(0.2)
+
+      var xscale2 = d3.scaleLinear().domain([0, d3.max(channelData, (d) => { return d[channel] })]).range([0, width2])
+
+      var xaxis2 = d3.axisBottom(xscale2)
+        .tickSize(-370, 0, 0)
+        .tickFormat(function (d) { return d })
+
+      var yaxis2 = d3.axisLeft(yscale2).tickSize(0)
+
+      var svg2 = d3.selectAll('#canvas3').append('svg')
+        .attr('width', 400).attr('height', 480)
+
+      svg2.append('g')
+        .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')')
+
+      svg2.append('g')
+        .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')')
+        .call(yaxis2)
+
+      svg2.append('g')
+        .attr('transform', 'translate(' + margin2.left + ',' + (height2 + margin2.top) + ')')
+        .call(xaxis2)
+
+      svg2.selectAll('rect')
+        .data(channelData)
+        .enter()
+        .append('rect')
+        .attr('x', margin2.left)
+        .attr('height', yscale2.bandwidth())
+        .attr('y', function (d) { return yscale2(d.Month) + margin2.top })
+        .attr('width', function (d) { return xscale2(d[channel]) })
+        .attr('fill', '#41f46e')
+        .attr('data-placement', 'right')
+        .attr('data-toggle', 'popover')
+        .attr('data-title', function (d){
+          return d[1]
+        })
+
+      svg2.selectAll()
+        .data(channelData)
+        .enter()
+        .append('text')
+        .attr('x', function (d) { return xscale2(d[channel]) + margin2.left })
+        .attr('y', function (d) { return yscale2(d.Month) + margin2.bottom })
+        .attr('dy', '.35em')
+        .style('font-size', '12')
+        .text(function (d) { return d.User })
+
+      svg2.append('text')
+        .attr('class', 'x label')
+        .attr('text-anchor', 'end')
+        .attr('x', width2 + 10)
+        .attr('y', height2 + 65)
+        .attr('font-size', '16')
+        .attr('dy', '.35em')
+        .text('Subscribers (in mn)')
     })
     .fail(function (error) {
       alert(error)

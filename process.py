@@ -3,7 +3,10 @@ import pandas as pd
 
 def get_subs():
     df = pd.read_csv('data/data.csv')
+    month_list = df['Month'].unique()
     df1 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Subscribers').reset_index()
+    df1['Month_new'] = pd.Categorical(df1['Month'], categories=month_list, ordered=True)
+    df1 = df1.sort_values('Month_new').drop('Month_new', axis=1)
     return df1.to_json(orient='records')
 
 
