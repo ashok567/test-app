@@ -22,6 +22,12 @@ class ViewsDataHandler(RequestHandler):
         self.write({'response': json.loads(res)})
 
 
+class InsightsHandler(RequestHandler):
+    def get(self):
+        res = process.get_insight()
+        self.write({'response': json.loads(res)})
+
+
 settings = dict(
     template_path=os.path.join(os.path.dirname(__file__), ''),
     debug=True
@@ -34,6 +40,7 @@ def make_app():
             (r'/', MainHandler),
             (r'/subs', SubsDataHandler),
             (r'/views', ViewsDataHandler),
+            (r'/insights', InsightsHandler),
             (r'/(.*)', tornado.web.StaticFileHandler,
              {"path": ""})], **settings)
 
