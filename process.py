@@ -19,4 +19,7 @@ def get_views():
 
 def get_insight():
     df = pd.read_csv('data/data.csv')
-    return df.to_json(orient='records')
+    df1 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Views').reset_index()
+    df2 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Subscribers').reset_index()
+    df3 = df1.append(df2)
+    return df3.to_json(orient='records')
