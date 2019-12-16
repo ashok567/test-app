@@ -24,6 +24,10 @@ $(document).ready(function (){
       var mainColors = {}
       _.each(channels, function (d, i) { mainColors[d] = colors[i] })
 
+      var btnTmpl = _.template($('#channel-btn-script').html())
+      var tmplHtml = btnTmpl({ btnName: channels, btnColor: mainColors })
+      $('#channel-btn-group').html(tmplHtml)
+
       var stack = d3.stack().keys(channels)
       var dataset = stack(data.response)
 
