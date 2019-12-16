@@ -220,7 +220,7 @@ function channelWiseSubs (data, channel){
 
   var width2 = 250
   var height2 = 370
-  var margin2 = { top: 20, right: 10, bottom: 30, left: 40 }
+  var margin2 = { top: 20, right: 10, bottom: 20, left: 30 }
 
   var yscale2 = d3.scaleBand().domain(months.map((d) => { return d })).range([0, height2]).padding(0.2)
 
@@ -235,8 +235,8 @@ function channelWiseSubs (data, channel){
   var svg2 = d3.selectAll('#canvas3').append('svg')
     .attr('width', 400).attr('height', 480)
 
-  svg2.append('g')
-    .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')')
+  // svg2.append('g')
+  //   .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')')
 
   svg2.append('g')
     .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')')
@@ -265,11 +265,11 @@ function channelWiseSubs (data, channel){
     .data(channelData)
     .enter()
     .append('text')
-    .attr('x', function (d) { return xscale2(d[channel]) + margin2.left })
-    .attr('y', function (d) { return yscale2(d.Month) + margin2.bottom })
+    .attr('x', function (d) { return xscale2(d[channel]) + 30 })
+    .attr('y', function (d) { return yscale2(d.Month) + 30 })
     .attr('dy', '.35em')
     .style('font-size', '12')
-    .text(function (d) { return d.User })
+    .text(function (d) { return d[channel] })
 
   svg2.append('text')
     .attr('class', 'x label')
