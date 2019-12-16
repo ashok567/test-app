@@ -6,7 +6,7 @@ var margin = { top: 50, right: 10, bottom: 10, left: 60 }
 var width = 600 - margin.left - margin.right
 var height = 400 - margin.top - margin.bottom
 
-var svg = d3.selectAll('#canvas1').append('svg').attr('width', 700).attr('height', 480)
+var svg = d3.selectAll('#canvas1').append('svg').attr('width', 600).attr('height', 480)
   // .attr('preserveAspectRatio', 'xMinYMin meet')
   // .attr('viewBox', '0 0 600 520').classed('svg-content', true)
   .append('g')
@@ -96,34 +96,34 @@ $(document).ready(function (){
         .text('Months')
 
       // Draw legend
-      var legend = svg.selectAll('.legend')
-        .data(colors)
-        .enter().append('g')
-        .attr('class', 'legend')
-        .attr('transform', function (d, i) { return 'translate(10,' + i * 20 + ')' })
+      // var legend = svg.selectAll('.legend')
+      //   .data(colors)
+      //   .enter().append('g')
+      //   .attr('class', 'legend')
+      //   .attr('transform', function (d, i) { return 'translate(10,' + i * 20 + ')' })
 
-      legend.append('rect')
-        .attr('x', width + 10)
-        .attr('width', 18)
-        .attr('height', 18)
-        .style('fill', function (d, i) { return colors[i] })
+      // legend.append('rect')
+      //   .attr('x', width + 10)
+      //   .attr('width', 18)
+      //   .attr('height', 18)
+      //   .style('fill', function (d, i) { return colors[i] })
 
-      legend.append('text')
-        .attr('x', width + 36)
-        .attr('y', 9)
-        .attr('dy', '.35em')
-        .style('text-anchor', 'start')
-        .style('font', '11px sans-serif')
-        .text(function (d, i) {
-          switch (i) {
-            case 0: return channels[0]
-            case 1: return channels[1]
-            case 2: return channels[2]
-            case 3: return channels[3]
-            case 4: return channels[4]
-            case 5: return channels[5]
-          }
-        })
+      // legend.append('text')
+      //   .attr('x', width + 36)
+      //   .attr('y', 9)
+      //   .attr('dy', '.35em')
+      //   .style('text-anchor', 'start')
+      //   .style('font', '11px sans-serif')
+      //   .text(function (d, i) {
+      //     switch (i) {
+      //       case 0: return channels[0]
+      //       case 1: return channels[1]
+      //       case 2: return channels[2]
+      //       case 3: return channels[3]
+      //       case 4: return channels[4]
+      //       case 5: return channels[5]
+      //     }
+      //   })
 
       $.get('/views', function (data1){
         var dataset1 = data1.response
