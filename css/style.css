@@ -38,3 +38,11 @@ li, #heading, svg{
     top: 0;
     left: 0;
 }
+
+.loading-image {
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  width: 250px;
+  height: 250px;
+}

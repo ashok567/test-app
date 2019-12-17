@@ -1,5 +1,6 @@
 /* eslint-disable space-before-blocks */
 $('body').tooltip({ selector: '[title],[data-title],[data-original-title]', container: 'body', html: true, animated: 'fade' })
+$(window).on('load', function (){ $('.loader').fadeOut('slow') })
 
 var margin = { top: 50, right: 10, bottom: 10, left: 60 }
 
@@ -13,6 +14,8 @@ var svg = d3.selectAll('#canvas1').append('svg').attr('width', 600).attr('height
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
 $(document).ready(function (){
+  $('body').show()
+  $('.loader').show()
   $.ajax({
     type: 'GET',
     url: '/subs'
