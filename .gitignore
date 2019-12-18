@@ -20,6 +20,8 @@ __pycache__/
 *.xhtml
 
 # Data files. Try not to commit data into the repo
+data/
+*.csv
 *.dat
 *.mdb
 
