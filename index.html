@@ -14,13 +14,24 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="#" id="heading"><img src="images/logo.png" width="34" height="34" class="d-inline-block align-top" alt=""> DATA ANAYSIS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" id="download">DOWNLOAD</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
   <div class="container-fluid">
     <div class="loader">
       <img class="loading-image" src="./images/loader.gif" alt="loading..">
     </div>
-    <div class="row">
+    <div class="row" id="main-div">
       <div class="col-xs-5 col-lg-5">
         <div class="row">
           <div id="canvas1"></div>
@@ -58,10 +69,12 @@
   </div>
 </body>
 <script src="./node_modules/jquery/dist/jquery.js"></script>
-<script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="./node_modules/popper.js/dist/umd/popper.min.js    "></script>
 <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="./node_modules/d3/dist/d3.min.js"></script>
 <script src="./node_modules/lodash/lodash.min.js"></script>
 <script src="./node_modules/html2canvas/dist/html2canvas.min.js"></script>
+<script src="./node_modules/html2canvas/dist/html2canvas.min.js"></script>
+<script src="./node_modules/dom-to-image/dist/dom-to-image.min.js"></script>
 <script type="text/javascript" src="./js/index.js"></script>
 </html>

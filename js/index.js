@@ -2,12 +2,12 @@
 $('body').tooltip({ selector: '[title],[data-title],[data-original-title]', container: 'body', html: true, animated: 'fade' })
 $(window).on('load', function (){ $('.loader').fadeOut('slow') })
 
-var margin = { top: 50, right: 10, bottom: 10, left: 60 }
+const margin = { top: 50, right: 10, bottom: 10, left: 60 }
 
-var width = 600 - margin.left - margin.right
-var height = 400 - margin.top - margin.bottom
+const width = 600 - margin.left - margin.right
+const height = 400 - margin.top - margin.bottom
 
-var svg = d3.selectAll('#canvas1').append('svg').attr('width', 600).attr('height', 480)
+const svg = d3.selectAll('#canvas1').append('svg').attr('width', 600).attr('height', 480)
   // .attr('preserveAspectRatio', 'xMinYMin meet')
   // .attr('viewBox', '0 0 600 520').classed('svg-content', true)
   .append('g')
@@ -21,34 +21,34 @@ $(document).ready(function (){
     url: '/subs'
   })
     .done(function (data){
-      var months = _.uniq(_.map(data.response, 'Month'))
-      var channels = _.pull(_.keys(data.response[0]), 'Month')
-      var colors = ['#66c2a5', '#D2691E', '#FFD700', '#8da0cb', '#a6d854', '#e78ac3']
-      var mainColors = {}
+      const months = _.uniq(_.map(data.response, 'Month'))
+      const channels = _.pull(_.keys(data.response[0]), 'Month')
+      const colors = ['#66c2a5', '#D2691E', '#FFD700', '#8da0cb', '#a6d854', '#e78ac3']
+      const mainColors = {}
       _.each(channels, function (d, i) { mainColors[d] = colors[i] })
 
-      var btnTmpl = _.template($('#channel-btn-script').html())
-      var tmplHtml = btnTmpl({ btnName: channels, btnColor: mainColors })
+      const btnTmpl = _.template($('#channel-btn-script').html())
+      const tmplHtml = btnTmpl({ btnName: channels, btnColor: mainColors })
       $('#channel-btn-group').html(tmplHtml)
 
-      var stack = d3.stack().keys(channels)
-      var dataset = stack(data.response)
+      const stack = d3.stack().keys(channels)
+      const dataset = stack(data.response)
 
-      var x = d3.scaleBand()
+      const x = d3.scaleBand()
         .domain(months.map(function (d) { return d }))
         .range([10, width - 10], 0.02)
 
-      var y = d3.scaleLinear()
+      const y = d3.scaleLinear()
         .domain([0, d3.max(dataset, function (d) { return d3.max(d, function (d) { return d[1] }) })])
         .range([height, 0])
 
       // Define and draw axes
-      var yAxis = d3.axisLeft(y)
+      const yAxis = d3.axisLeft(y)
         .ticks(5)
         .tickSize(-width, 0, 0)
         .tickFormat(function (d) { return d })
 
-      var xAxis = d3.axisBottom(x)
+      const xAxis = d3.axisBottom(x)
 
       svg.append('g')
         .attr('class', 'y axis')
@@ -59,7 +59,7 @@ $(document).ready(function (){
         .attr('transform', 'translate(0,' + height + ')')
         .call(xAxis)
 
-      var groups = svg.selectAll('g.cost')
+      const groups = svg.selectAll('g.cost')
         .data(dataset)
         .enter().append('g')
         .attr('class', 'cost')
@@ -99,7 +99,7 @@ $(document).ready(function (){
         .text('Months')
 
       // Draw legend
-      // var legend = svg.selectAll('.legend')
+      // let legend = svg.selectAll('.legend')
       //   .data(colors)
       //   .enter().append('g')
       //   .attr('class', 'legend')
@@ -129,38 +129,38 @@ $(document).ready(function (){
       //   })
 
       $.get('/views', function (data1){
-        var dataset1 = data1.response
+        const dataset1 = data1.response
 
-        var margin1 = { top: 20, right: 10, bottom: 10, left: 40 }
+        const margin1 = { top: 20, right: 10, bottom: 10, left: 40 }
 
-        var width1 = 400 - margin1.left - margin1.right
-        var height1 = 400 - margin1.top - margin1.bottom
+        const width1 = 400 - margin1.left - margin1.right
+        const height1 = 400 - margin1.top - margin1.bottom
 
-        var svg1 = d3.selectAll('#canvas2')
+        const svg1 = d3.selectAll('#canvas2')
           .append('svg')
           .attr('width', 400)
           .attr('height', 450)
           .append('g')
           .attr('transform', 'translate(' + margin1.left + ',' + margin1.top + ')')
 
-        var x1 = d3.scaleBand()
+        const x1 = d3.scaleBand()
           .domain(months.map(function (d) { return d }))
           .range([10, width1 - 10], 0.02)
 
-        var y1 = d3.scaleLinear()
+        const y1 = d3.scaleLinear()
           .domain([0, d3.max(Object.values(dataset1), (d) => { return d3.max(Object.values(d)) })])
           .range([height1, 0])
 
-        var xaxis = d3.axisBottom(x1)
+        const xaxis = d3.axisBottom(x1)
 
-        var yaxis = d3.axisLeft(y1).tickSize(-width1, 0, 0).tickFormat(function (d) { return d })
+        const yaxis = d3.axisLeft(y1).tickSize(-width1, 0, 0).tickFormat(function (d) { return d })
 
         svg1.append('g').attr('class', 'y axis').call(yaxis)
 
         svg1.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + height1 + ')').call(xaxis)
 
         _.each(dataset1, (data, i) => {
-          var line = d3.line().x((d) => { return x1(d[0]) + x1.bandwidth() / 2 }).y((d) => { return y1(d[1]) })
+          const line = d3.line().x((d) => { return x1(d[0]) + x1.bandwidth() / 2 }).y((d) => { return y1(d[1]) })
           svg1.append('path').datum(Object.entries(data)).attr('d', line).attr('class', 'line').attr('stroke', mainColors[i])
 
           svg1.selectAll()
@@ -205,7 +205,7 @@ $(document).ready(function (){
 })
 
 $(document).on('click', '.btn', function (){
-  var channel = $(this).text()
+  const channel = $(this).text()
   $.get('/subs', function (data){
     channelWiseSubs(data, channel)
   })
@@ -213,29 +213,29 @@ $(document).on('click', '.btn', function (){
 
 function channelWiseSubs (data, channel){
   $('#canvas3').empty()
-  var months = _.uniq(_.map(data.response, 'Month'))
-  var channels = _.pull(_.keys(data.response[0]), 'Month')
-  var colors = ['#66c2a5', '#D2691E', '#FFD700', '#8da0cb', '#a6d854', '#e78ac3']
-  var mainColors = {}
+  const months = _.uniq(_.map(data.response, 'Month'))
+  const channels = _.pull(_.keys(data.response[0]), 'Month')
+  const colors = ['#66c2a5', '#D2691E', '#FFD700', '#8da0cb', '#a6d854', '#e78ac3']
+  const mainColors = {}
   _.each(channels, function (d, i) { mainColors[d] = colors[i] })
 
-  var channelData = _.map(data.response, (d) => _.pick(d, ['Month', channel]))
+  const channelData = _.map(data.response, (d) => _.pick(d, ['Month', channel]))
 
-  var width2 = 250
-  var height2 = 370
-  var margin2 = { top: 20, right: 10, bottom: 20, left: 30 }
+  const width2 = 250
+  const height2 = 370
+  const margin2 = { top: 20, right: 10, bottom: 20, left: 30 }
 
-  var yscale2 = d3.scaleBand().domain(months.map((d) => { return d })).range([0, height2]).padding(0.2)
+  const yscale2 = d3.scaleBand().domain(months.map((d) => { return d })).range([0, height2]).padding(0.2)
 
-  var xscale2 = d3.scaleLinear().domain([0, d3.max(channelData, (d) => { return d[channel] })]).range([0, width2])
+  const xscale2 = d3.scaleLinear().domain([0, d3.max(channelData, (d) => { return d[channel] })]).range([0, width2])
 
-  var xaxis2 = d3.axisBottom(xscale2)
+  const xaxis2 = d3.axisBottom(xscale2)
     .tickSize(-370, 0, 0)
     .tickFormat(function (d) { return d })
 
-  var yaxis2 = d3.axisLeft(yscale2).tickSize(0)
+  const yaxis2 = d3.axisLeft(yscale2).tickSize(0)
 
-  var svg2 = d3.selectAll('#canvas3').append('svg')
+  const svg2 = d3.selectAll('#canvas3').append('svg')
     .attr('width', 400).attr('height', 480)
 
   // svg2.append('g')
@@ -283,3 +283,17 @@ function channelWiseSubs (data, channel){
     .attr('dy', '.35em')
     .text('Subscribers (in mn)')
 }
+
+$(document).on('click', '#download', function (){
+  var node = $('#canvas3')[0]
+  domtoimage.toSvg(node)
+    .then(function (dataUrl) {
+      const a = document.createElement('a')
+      a.href = dataUrl
+      a.download = 'youtube_channel.svg'
+      a.click()
+    })
+    .catch(function (error) {
+      console.error('oops, something went wrong!', error)
+    })
+})
