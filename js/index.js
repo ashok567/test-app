@@ -286,11 +286,11 @@ function channelWiseSubs (data, channel){
 
 $(document).on('click', '#download', function (){
   var node = $('#canvas3')[0]
-  domtoimage.toPng(node)
+  domtoimage.toSvg(node)
     .then(function (dataUrl) {
       const a = document.createElement('a')
       a.href = dataUrl
-      a.download = 'youtube_channel.png'
+      a.download = 'youtube_channel.svg'
       a.click()
     })
     .catch(function (error) {

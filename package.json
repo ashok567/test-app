@@ -1,5 +1,5 @@
 {
-  "name": "test-app",
+  "name": "youtube-viz",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ashok567/test-app.git"
+    "url": "git+https://github.com/ashok567/youtube-viz.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ashok567/test-app/issues"
+    "url": "https://github.com/ashok567/youtube-viz/issues"
   },
-  "homepage": "https://github.com/ashok567/test-app#readme",
+  "homepage": "https://github.com/ashok567/youtube-viz#readme",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "d3": "^5.9.2",
