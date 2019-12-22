@@ -98,36 +98,6 @@ $(document).ready(function (){
         .attr('dy', '.35em')
         .text('Months')
 
-      // Draw legend
-      // let legend = svg.selectAll('.legend')
-      //   .data(colors)
-      //   .enter().append('g')
-      //   .attr('class', 'legend')
-      //   .attr('transform', function (d, i) { return 'translate(10,' + i * 20 + ')' })
-
-      // legend.append('rect')
-      //   .attr('x', width + 10)
-      //   .attr('width', 18)
-      //   .attr('height', 18)
-      //   .style('fill', function (d, i) { return colors[i] })
-
-      // legend.append('text')
-      //   .attr('x', width + 36)
-      //   .attr('y', 9)
-      //   .attr('dy', '.35em')
-      //   .style('text-anchor', 'start')
-      //   .style('font', '11px sans-serif')
-      //   .text(function (d, i) {
-      //     switch (i) {
-      //       case 0: return channels[0]
-      //       case 1: return channels[1]
-      //       case 2: return channels[2]
-      //       case 3: return channels[3]
-      //       case 4: return channels[4]
-      //       case 5: return channels[5]
-      //     }
-      //   })
-
       $.get('/views', function (data1){
         const dataset1 = data1.response
 
@@ -186,7 +156,7 @@ $(document).ready(function (){
           .attr('font-size', '16')
           .attr('dy', '.35em')
           .attr('transform', 'rotate(-90)')
-          .text('Views (in mn)')
+          .text('Views (in bn)')
 
         svg1.append('text')
           .attr('class', 'x label')
