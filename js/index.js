@@ -101,7 +101,7 @@ $(document).ready(function (){
       $.get('/views', function (data1){
         const dataset1 = data1.response
 
-        const margin1 = { top: 20, right: 10, bottom: 10, left: 40 }
+        const margin1 = { top: 20, right: 10, bottom: 10, left: 60 }
 
         const width1 = 400 - margin1.left - margin1.right
         const height1 = 400 - margin1.top - margin1.bottom
@@ -156,7 +156,7 @@ $(document).ready(function (){
           .attr('font-size', '16')
           .attr('dy', '.35em')
           .attr('transform', 'rotate(-90)')
-          .text('Views (in bn)')
+          .text('Total Views (in bn)')
 
         svg1.append('text')
           .attr('class', 'x label')
@@ -191,7 +191,7 @@ function channelWiseSubs (data, channel){
 
   const channelData = _.map(data.response, (d) => _.pick(d, ['Month', channel]))
 
-  const width2 = 250
+  const width2 = 300
   const height2 = 370
   const margin2 = { top: 20, right: 10, bottom: 20, left: 30 }
 
@@ -247,7 +247,7 @@ function channelWiseSubs (data, channel){
   svg2.append('text')
     .attr('class', 'x label')
     .attr('text-anchor', 'end')
-    .attr('x', width2 + 10)
+    .attr('x', width2 - 40)
     .attr('y', height2 + 65)
     .attr('font-size', '16')
     .attr('dy', '.35em')
