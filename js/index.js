@@ -76,7 +76,7 @@ $(document).ready(function (){
         .attr('data-placement', 'right')
         .attr('data-toggle', 'popover')
         .attr('data-title', function (d){
-          return d[1] - d[0]
+          return (d[1] - d[0]).toFixed(2)
         })
 
       svg.append('text')
