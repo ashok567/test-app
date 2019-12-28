@@ -168,6 +168,13 @@ $(document).ready(function (){
           .text('Months')
       })
       channelWiseSubs(data, channels[0])
+
+      $.get('/insights', function (data){
+        data = data.response
+        const insightTmpl = _.template($('#yt-insights').html())
+        const tmplHtml = insightTmpl({ subsChannels: data.most_subs, viewChannels: data.most_views })
+        $('#insights').html(tmplHtml)
+      })
     })
     .fail(function (error) {
       alert(error)

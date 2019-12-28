@@ -13,7 +13,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" id="heading"><img src="images/logo.png" width="34" height="34" class="d-inline-block align-top" alt=""> DATA ANAYSIS</a>
+      <a class="navbar-brand" href="#" id="heading"><img src="images/logo.png" width="34" height="34" class="d-inline-block align-top" alt=""> Youtube Analysis</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -38,11 +38,12 @@
         </div>
         <div class="row">
           <div id="insights">
+            <script id="yt-insights" type="text/html">
               <ul>
-                <!-- <li>Customer 360 application was most used in hits</li>
-                <li>was the most used dashboard followed by</li>
-                <li>was the least dashboard used followed by</li> -->
+                <li><%=subsChannels[0][0]%> was the most subscribed channel followed by <%=subsChannels[1][0]%> in 2019</li>
+                <li><%=viewChannels[0][0]%> was the most viewed channel followed by <%=viewChannels[1][0]%> & <%=viewChannels[2][0]%></li>
               </ul>
+            </script>
           </div>
         </div>
       </div>
