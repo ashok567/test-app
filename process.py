@@ -44,7 +44,7 @@ def get_insight():
     view_channels = new_df.sort_values(by='Views', ascending=False).values.tolist()[:3]
     result['most_subs'] = sub_channels
     result['most_views'] = view_channels
-    # df1 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Views').reset_index()
-    # df2 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Subscribers').reset_index()
-    # df3 = df1.append(df2)
+    df1 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Views').reset_index()
+    df2 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Subscribers').reset_index()
+    df3 = df1.append(df2)
     return json.dumps(result)
