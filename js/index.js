@@ -23,7 +23,7 @@ $(document).ready(function (){
     .done(function (data){
       const months = _.uniq(_.map(data.response, 'Month'))
       const channels = _.pull(_.keys(data.response[0]), 'Month')
-      const colors = ['#66c2a5', '#D2691E', '#FFD700', '#8da0cb', '#a6d854', '#e78ac3']
+      const colors = ['#DC3545', '#5be147', '#ecab00', '#f21aff', '#1993D0', '#635d58']
       const mainColors = {}
       _.each(channels, function (d, i) { mainColors[d] = colors[i] })
 
@@ -192,19 +192,19 @@ function channelWiseSubs (data, channel){
   $('#canvas3').empty()
   const months = _.uniq(_.map(data.response, 'Month'))
   const channels = _.pull(_.keys(data.response[0]), 'Month')
-  const colors = ['#66c2a5', '#D2691E', '#FFD700', '#8da0cb', '#a6d854', '#e78ac3']
+  const colors = ['#DC3545', '#5be147', '#ecab00', '#f21aff', '#1993D0', '#635d58']
   const mainColors = {}
-  _.each(channels, function (d, i) { mainColors[d] = colors[i] })
-
-  const channelData = _.map(data.response, (d) => _.pick(d, ['Month', channel]))
-
   const width2 = 300
   const height2 = 370
   const margin2 = { top: 20, right: 10, bottom: 20, left: 30 }
 
+  _.each(channels, function (d, i) { mainColors[d] = colors[i] })
+
+  const channelData = _.map(data.response, (d) => _.pick(d, ['Month', channel]))
+
   const yscale2 = d3.scaleBand().domain(months.map((d) => { return d })).range([0, height2]).padding(0.2)
 
-  const xscale2 = d3.scaleLinear().domain([0, d3.max(channelData, (d) => { return d[channel] })]).range([0, width2])
+  const xscale2 = d3.scaleLinear().domain([0, 120]).range([0, width2])
 
   const xaxis2 = d3.axisBottom(xscale2)
     .tickSize(-370, 0, 0)
