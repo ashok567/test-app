@@ -8,8 +8,6 @@ const width = 600 - margin.left - margin.right
 const height = 400 - margin.top - margin.bottom
 
 const svg = d3.selectAll('#canvas1').append('svg').attr('width', 600).attr('height', 480)
-  // .attr('preserveAspectRatio', 'xMinYMin meet')
-  // .attr('viewBox', '0 0 600 520').classed('svg-content', true)
   .append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
@@ -214,9 +212,6 @@ function channelWiseSubs (data, channel){
 
   const svg2 = d3.selectAll('#canvas3').append('svg')
     .attr('width', 400).attr('height', 480)
-
-  // svg2.append('g')
-  //   .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')')
 
   svg2.append('g')
     .attr('transform', 'translate(' + margin2.left + ',' + margin2.top + ')')
