@@ -1,6 +1,7 @@
 /* eslint-disable space-before-blocks */
-$('body').tooltip({ selector: '[title],[data-title],[data-original-title]', container: 'body', html: true, animated: 'fade' })
 $(window).on('load', function (){ $('.loader').fadeOut('slow') })
+
+$('body').tooltip({ selector: '[title],[data-title],[data-original-title]', container: 'body', html: true, animated: 'fade' })
 
 const margin = { top: 50, right: 10, bottom: 10, left: 60 }
 
@@ -101,7 +102,7 @@ $(document).ready(function (){
 
         const margin1 = { top: 20, right: 10, bottom: 10, left: 60 }
 
-        const width1 = 400 - margin1.left - margin1.right
+        const width1 = 400 - margin1.left - (2 * margin1.right)
         const height1 = 400 - margin1.top - margin1.bottom
 
         const svg1 = d3.selectAll('#canvas2')
@@ -139,11 +140,6 @@ $(document).ready(function (){
             .attr('cy', function (d) { return y1(d[1]) })
             .attr('r', 3)
             .attr('fill', mainColors[i])
-            .attr('data-placement', 'right')
-            .attr('data-toggle', 'popover')
-            .attr('data-title', function (d){
-              return d
-            })
         })
 
         svg1.append('text')
@@ -230,11 +226,6 @@ function channelWiseSubs (data, channel){
     .attr('y', function (d) { return yscale2(d.Month) + margin2.top })
     .attr('width', function (d) { return xscale2(d[channel]) })
     .attr('fill', mainColors[channel])
-    .attr('data-placement', 'right')
-    .attr('data-toggle', 'popover')
-    .attr('data-title', function (d){
-      return d[1]
-    })
 
   svg2.selectAll()
     .data(channelData)
