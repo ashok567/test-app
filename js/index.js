@@ -6,7 +6,7 @@ $('body').tooltip({ selector: '[title],[data-title],[data-original-title]', cont
 const margin = { top: 50, right: 10, bottom: 10, left: 60 }
 
 const width = 600 - margin.left - margin.right
-const height = 400 - margin.top - margin.bottom
+const height = 400 - margin.top
 
 const svg = d3.selectAll('#canvas1').append('svg').attr('width', 600).attr('height', 480)
   .append('g')
@@ -74,9 +74,7 @@ $(document).ready(function (){
         .attr('width', 30)
         .attr('data-placement', 'right')
         .attr('data-toggle', 'popover')
-        .attr('data-title', function (d){
-          return (d[1] - d[0]).toFixed(2)
-        })
+        .attr('data-title', (d) => (d[1] - d[0]).toFixed(2))
 
       svg.append('text')
         .attr('class', 'y label')
@@ -140,6 +138,9 @@ $(document).ready(function (){
             .attr('cy', function (d) { return y1(d[1]) })
             .attr('r', 3)
             .attr('fill', mainColors[i])
+            .attr('data-placement', 'right')
+            .attr('data-toggle', 'popover')
+            .attr('data-title', (d) => d[1])
         })
 
         svg1.append('text')
