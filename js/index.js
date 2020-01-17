@@ -20,6 +20,7 @@ $(document).ready(function (){
     url: '/subs'
   })
     .done(function (data){
+      console.log(data)
       const months = _.uniq(_.map(data.response, 'Month'))
       const channels = _.pull(_.keys(data.response[0]), 'Month')
       const colors = ['#DC3545', '#5be147', '#ecab00', '#f21aff', '#1993D0', '#635d58']
