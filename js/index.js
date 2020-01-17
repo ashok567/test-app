@@ -129,7 +129,10 @@ $(document).ready(function (){
 
         _.each(dataset1, (data, i) => {
           const line = d3.line().x((d) => { return x1(d[0]) + x1.bandwidth() / 2 }).y((d) => { return y1(d[1]) })
-          svg1.append('path').datum(Object.entries(data)).attr('d', line).attr('class', 'line').attr('stroke', mainColors[i])
+          svg1.append('path')
+            .datum(Object.entries(data))
+            .attr('d', line).attr('class', 'line')
+            .attr('stroke', mainColors[i])
 
           svg1.selectAll()
             .data(Object.entries(data))
@@ -137,7 +140,7 @@ $(document).ready(function (){
             .attr('class', 'dot')
             .attr('cx', function (d) { return x1(d[0]) + x1.bandwidth() / 2 })
             .attr('cy', function (d) { return y1(d[1]) })
-            .attr('r', 3)
+            .attr('r', 6)
             .attr('fill', mainColors[i])
             .attr('data-placement', 'right')
             .attr('data-toggle', 'popover')
