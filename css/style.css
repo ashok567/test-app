@@ -39,7 +39,7 @@ li, #heading, svg{
 #insights{
   font-family: "Comic Sans MS", cursive, sans-serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .svg-content {
@@ -55,4 +55,8 @@ li, #heading, svg{
   left: 40%;
   width: 250px;
   height: 250px;
+}
+.sign{
+  height: 12px;
+  width: 14px;
 }
