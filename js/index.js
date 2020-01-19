@@ -167,13 +167,7 @@ $(document).ready(function (){
           .text('Months')
       })
       channelWiseSubs(data, channels[0])
-
-      $.get('/insights', function (data){
-        data = data.response
-        const insightTmpl = _.template($('#yt-insights').html())
-        const tmplHtml = insightTmpl({ subsChannels: data.most_subs, viewChannels: data.most_views })
-        $('#insights').html(tmplHtml)
-      })
+      insights(channels[0])
     })
     .fail(function (error) {
       alert(error)
@@ -184,6 +178,7 @@ $(document).on('click', '.btn', function (){
   const channel = $(this).text()
   $.get('/subs', function (data){
     channelWiseSubs(data, channel)
+    insights(channel)
   })
 })
 
@@ -250,6 +245,16 @@ function channelWiseSubs (data, channel){
     .attr('font-size', '16')
     .attr('dy', '.35em')
     .text('Subscribers (in mn)')
+}
+
+function insights (channel){
+  $('#insights').empty()
+  $.get('/insights', function (data){
+    data = data.response
+    const insightTmpl = _.template($('#yt-insights').html())
+    const tmplHtml = insightTmpl({ subsChannels: data.most_subs, viewChannels: data.most_views })
+    $('#insights').html(tmplHtml)
+  })
 }
 
 $(document).on('click', '#download', function (){

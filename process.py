@@ -40,15 +40,15 @@ def get_views():
 
 
 def get_insight():
-    new_df = df.groupby('Channels').sum().reset_index()
     result = {}
-    sub_channels = new_df.sort_values(by='Subscribers', ascending=False).values.tolist()[:2]
-    view_channels = new_df.sort_values(by='Views', ascending=False).values.tolist()[:3]
-    result['most_subs'] = sub_channels
-    result['most_views'] = view_channels
+    new_df = df.groupby('Channels').mean().reset_index()
+    trending_channels = new_df.sort_values(
+        by=['Subscribers', 'Views'], ascending=False).values.tolist()
     df1 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Views').reset_index()
     df2 = pd.pivot_table(df, index='Month', columns=['Channels'],
                          values='Subscribers').reset_index()
-    df3 = df1.append(df2)
-    print(df3.head())
+    for channel in trending_channels:
+        print(channel)
     return json.dumps(result)
+
+# channel, rank, subs, avg-sub, views, avg-views
