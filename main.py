@@ -24,7 +24,8 @@ class ViewsDataHandler(RequestHandler):
 
 class InsightsHandler(RequestHandler):
     def get(self):
-        res = process.get_insight()
+        channel = self.get_argument('channel', 'Dude perfect')
+        res = process.get_insight(channel)
         self.write({'response': json.loads(res)})
 
 

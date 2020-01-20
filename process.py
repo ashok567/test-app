@@ -18,10 +18,26 @@ def mtob(d):
         return round(float(d[:-1]), 2)
 
 
+def get_monthly_diff(channel, month, entity):
+    months_list = df['Month'].unique().tolist()
+    if month != 'JAN':
+        idx = months_list.index(month)
+        prev_month = months_list[idx-1]
+        start = df[(df['Channels'] == channel) &
+                   (df['Month'] == prev_month)][entity].values[0]
+        end = df[(df['Channels'] == channel) &
+                 (df['Month'] == month)][entity].values[0]
+        return round(end - start, 2)
+    else:
+        return 0
+
+
 df = pd.read_csv('data/data.csv')
 df[['Subscribers', 'Views']] = df[['Subscribers', 'Views']].fillna('0')
 df['Subscribers'] = df['Subscribers'].apply(btom)
 df['Views'] = df['Views'].apply(mtob)
+df['Subs_diff'] = df.apply(lambda x: get_monthly_diff(x['Channels'], x['Month'], 'Subscribers'), axis=1)
+df['Views_diff'] = df.apply(lambda x: get_monthly_diff(x['Channels'], x['Month'], 'Views'), axis=1)
 
 
 def get_subs():
@@ -39,29 +55,16 @@ def get_views():
     return df2.to_json(orient='columns')
 
 
-def get_insight():
-    result = []
+def get_insight(channel):
+    insights = {}
     trend = ['most', '2nd most', '3rd most', '3rd least', '2nd least', 'least']
-    # trending_channels = df.sort_values(
-    #     by=['Subscribers', 'Views'], ascending=False).values.tolist()
-    channels = df['Channels'].unique()
-    for i in range(len(channels)):
-        insights = {}
-        insights['channel'] = channels[i]
-        insights['rank'] = trend[i]
-        insights['subs_start'] = df[(df['Channels'] == channels[i]) &
-                                    (df['Month'] == 'JAN')]['Subscribers'].values[0]
-        insights['subs_end'] = df[(df['Channels'] == channels[i]) &
-                                  (df['Month'] == 'DEC')]['Subscribers'].values[0]
-        insights['views_start'] = df[(df['Channels'] == channels[i]) &
-                                     (df['Month'] == 'JAN')]['Views'].values[0]*1000
-        insights['views_end'] = df[(df['Channels'] == channels[i]) &
-                                   (df['Month'] == 'DEC')]['Views'].values[0]*1000
-        insights['subs_avg'] = round(((insights['subs_end'] - insights['subs_start'])/11), 2)
-        insights['views_avg'] = round(((insights['views_end'] - insights['views_start'])/11), 2)
-        insights['views_gain'] = round((insights['views_end'] - insights['views_start']
-                                       + insights['views_avg'])/1000, 2)
-        result.append(insights)
-    return json.dumps(result)
-
-# channel, rank, subs, avg-sub, views, avg-views
+    trending_channels = df.sort_values(
+                        by=['Views_diff'], ascending=False)['Channels'].unique().tolist()
+    insights['channel'] = channel
+    insights['rank'] = trend[trending_channels.index(channel)]
+    insights['subs_end'] = df[(df['Channels'] == channel) &
+                              (df['Month'] == 'DEC')]['Subscribers'].values[0]
+    insights['subs_avg'] = round(df[df['Channels'] == channel]['Subs_diff'].mean(), 2)
+    insights['views_avg'] = round(df[df['Channels'] == channel]['Views_diff'].mean()*1000, 2)
+    insights['views_gain'] = round(df[df['Channels'] == channel]['Views_diff'].sum(), 2)
+    return json.dumps(insights)

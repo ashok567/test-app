@@ -249,9 +249,11 @@ function channelWiseSubs (data, channel){
 }
 
 function insights (channel){
-  $.get('/insights', function (res){
-    const data = res.response
-    const insightData = _.filter(data, (d) => d.channel == channel)
+  $('#insights').empty()
+  var url_data = {'channel': channel}
+  $.get('/insights?'+$.param(url_data), function (res){
+    const insightData = res.response
+    console.log(insightData)
     const tmplHtml = insightTmpl({insightData: insightData})
     $('#insights').html(tmplHtml)
   })

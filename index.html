@@ -40,11 +40,9 @@
           <div id="insights">
             <script class="yt-insights" type="text/html">
               <ul>
-                <%_.each(insightData, function(d){ %>
-                <li><%=d.channel %> was the <%=d.rank %> trending youtube channel of all six</li>
-                <li>The avg <img src="./images/arrow-up.png" class="sign"> in subscription was <%=d.subs_avg %>M, making the total <%=d.subs_end %>M by DEC-19</li>
-                <li>Total views gained in 2019 was <%=d.views_gain %>B with a monthly average of <%=d.views_avg %>M</li>
-                <% }) %>
+                <li><%=insightData.channel %> was the <%=insightData.rank %> trending youtube channel of all six</li>
+                <li>The monthly avg <img src="./images/arrow-up.png" class="sign"> in subscription was <%=insightData.subs_avg %>M, making it <%=insightData.subs_end %>M by DEC-19</li>
+                <li>Total views gained in 2019 was <%=insightData.views_gain %>B with a monthly average of <%=insightData.views_avg %>M</li>
               </ul>
             </script>
           </div>
