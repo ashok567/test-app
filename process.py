@@ -40,15 +40,28 @@ def get_views():
 
 
 def get_insight():
-    result = {}
-    # new_df = df.groupby('Channels').mean().reset_index()
-    # trending_channels = new_df.sort_values(
+    result = []
+    trend = ['most', '2nd most', '3rd most', '3rd least', '2nd least', 'least']
+    # trending_channels = df.sort_values(
     #     by=['Subscribers', 'Views'], ascending=False).values.tolist()
-    df1 = pd.pivot_table(df, index='Month', columns=['Channels'], values='Views').reset_index()
-    df2 = pd.pivot_table(df, index='Month', columns=['Channels'],
-                         values='Subscribers').reset_index()
-    # for channel in trending_channels:
-    #     print(channel)
+    channels = df['Channels'].unique()
+    for i in range(len(channels)):
+        insights = {}
+        insights['channel'] = channels[i]
+        insights['rank'] = trend[i]
+        insights['subs_start'] = df[(df['Channels'] == channels[i]) &
+                                    (df['Month'] == 'JAN')]['Subscribers'].values[0]
+        insights['subs_end'] = df[(df['Channels'] == channels[i]) &
+                                  (df['Month'] == 'DEC')]['Subscribers'].values[0]
+        insights['views_start'] = df[(df['Channels'] == channels[i]) &
+                                     (df['Month'] == 'JAN')]['Views'].values[0]*1000
+        insights['views_end'] = df[(df['Channels'] == channels[i]) &
+                                   (df['Month'] == 'DEC')]['Views'].values[0]*1000
+        insights['subs_avg'] = round(((insights['subs_end'] - insights['subs_start'])/11), 2)
+        insights['views_avg'] = round(((insights['views_end'] - insights['views_start'])/11), 2)
+        insights['views_gain'] = round((insights['views_end'] - insights['views_start']
+                                       + insights['views_avg'])/1000, 2)
+        result.append(insights)
     return json.dumps(result)
 
 # channel, rank, subs, avg-sub, views, avg-views

@@ -5,6 +5,8 @@ $('body').tooltip({ selector: '[title],[data-title],[data-original-title]', cont
 
 const margin = { top: 50, right: 10, bottom: 10, left: 60 }
 
+const insightTmpl = _.template($(".yt-insights").html())
+
 const width = 600 - margin.left - margin.right
 const height = 400 - margin.top
 
@@ -20,7 +22,6 @@ $(document).ready(function (){
     url: '/subs'
   })
     .done(function (data){
-      console.log(data)
       const months = _.uniq(_.map(data.response, 'Month'))
       const channels = _.pull(_.keys(data.response[0]), 'Month')
       const colors = ['#DC3545', '#5be147', '#ecab00', '#f21aff', '#1993D0', '#635d58']
@@ -178,8 +179,8 @@ $(document).on('click', '.btn', function (){
   const channel = $(this).text()
   $.get('/subs', function (data){
     channelWiseSubs(data, channel)
-    insights(channel)
   })
+  insights(channel)
 })
 
 function channelWiseSubs (data, channel){
@@ -248,11 +249,10 @@ function channelWiseSubs (data, channel){
 }
 
 function insights (channel){
-  $('#insights').empty()
-  $.get('/insights', function (data){
-    data = data.response
-    const insightTmpl = _.template($('#yt-insights').html())
-    const tmplHtml = insightTmpl({ subsChannels: data.most_subs, viewChannels: data.most_views })
+  $.get('/insights', function (res){
+    const data = res.response
+    const insightData = _.filter(data, (d) => d.channel == channel)
+    const tmplHtml = insightTmpl({insightData: insightData})
     $('#insights').html(tmplHtml)
   })
 }
