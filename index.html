@@ -42,7 +42,8 @@
               <ul>
                 <li><%=insightData.channel %> was the <%=insightData.rank %> trending youtube channel of all six</li>
                 <li>The monthly avg <img src="./images/arrow-up.png" class="sign"> in subscription was <%=insightData.subs_avg %>M, making it <%=insightData.subs_end %>M by DEC-19</li>
-                <li>Total views gained in 2019 was <%=insightData.views_gain %>B with a monthly average of <%=insightData.views_avg %>M</li>
+                <% var views_avg = (insightData.views_avg>1000)? (insightData.views_avg/1000).toFixed(2)+" B": insightData.views_avg + " M" %>
+                <li>Total views gained in 2019 was <%=insightData.views_gain %>B with a monthly average of <%= views_avg %></li>
               </ul>
             </script>
           </div>
