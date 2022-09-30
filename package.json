@@ -18,7 +18,7 @@
   "homepage": "https://github.com/ashok567/youtube-viz#readme",
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "d3": "^5.9.2",
+    "d3": "^7.6.1",
     "datatables": "^1.10.18",
     "dom-to-image": "^2.6.0",
     "font-awesome": "^4.7.0",
